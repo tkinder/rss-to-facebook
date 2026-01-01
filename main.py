@@ -32,8 +32,13 @@ def save_seen(ids):
 def post_to_fb(message):
     url = f"https://graph.facebook.com/v21.0/{PAGE_ID}/feed"
     data = {"message": message, "access_token": PAGE_TOKEN}
+    print(f"POST -> {url}")
+    print(f"Payload: {data}")
     r = requests.post(url, data=data, timeout=10)
+    print(f"FB status: {r.status_code}")
+    print(f"FB response text: {r.text}")
     r.raise_for_status()
+
 
 def run_once():
     print("Starting loop...")
