@@ -23,6 +23,7 @@ def post_to_fb(message):
     r.raise_for_status()
 
 def run_once():
+    print("Starting loop...")
     seen = load_seen()
     feed = feedparser.parse(RSS_URL)
     new_seen = set(seen)
@@ -31,9 +32,11 @@ def run_once():
         if eid in seen:
             continue
         msg = f"{entry.title}\n{entry.link}"
+        print("Posting:", msg)
         post_to_fb(msg)
         new_seen.add(eid)
     save_seen(new_seen)
+    print("Loop done.")
 
 if __name__ == "__main__":
     while True:
