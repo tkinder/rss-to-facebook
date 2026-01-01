@@ -1,3 +1,16 @@
+import subprocess, sys
+
+def ensure_packages():
+    try:
+        import feedparser  # noqa: F401
+        import requests    # noqa: F401
+    except ImportError:
+        subprocess.check_call([
+            sys.executable, "-m", "pip", "install",
+            "feedparser", "requests"
+        ])
+
+ensure_packages()
 import os, time, feedparser, requests
 
 RSS_URL = os.environ["RSS_URL"]
